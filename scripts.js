@@ -1,57 +1,95 @@
-// scripts.js
-function showLesson(lessonId) {
-    const lessonDetails = {
-        lesson1: {
-            title: "Lesson 1",
-            description: "Introduction to Algebra",
-            objectives: "Understand basic algebraic concepts."
-        },
-        lesson2: {
-            title: "Lesson 2",
-            description: "Geometry Basics",
-            objectives: "Learn about shapes and their properties."
-        }
-    };
-
-    const lesson = lessonDetails[lessonId];
-    document.getElementById('lesson-details').innerHTML = `
-        <h3>${lesson.title}</h3>
-        <p>${lesson.description}</p>
-        <p><strong>Objectives:</strong> ${lesson.objectives}</p>
-    `;
+// Function to update the content
+function updateContent(data) {
+    const classroomCodeElement = document.querySelector('.small-block p');
+    if (classroomCodeElement) {
+        classroomCodeElement.textContent = data.googleClassroomCode;
+    }
 }
 
-function showProblem(problemId) {
-    const problemDetails = {
-        problem1: {
-            problem: "What is 2 + 2?",
-            answer: "4"
-        },
-        problem2: {
-            problem: "What is the square root of 16?",
-            answer: "4"
-        }
-    };
+// Function to update the lessons content
+function updateLessonsContent(data) {
+    const lessonsList = document.getElementById('lessons-list');
+    const lessonDetails = document.getElementById('lesson-details');
 
-    const problem = problemDetails[problemId];
-    document.getElementById('problem-details').innerHTML = `
-        <h3>${problem.problem}</h3>
-        <input type="text" id="answer" placeholder="Enter your answer">
-        <button onclick="checkAnswer('${problem.answer}')">Submit</button>
-        <p id="feedback"></p>
-    `;
+    if (lessonsList && lessonDetails) {
+        lessonsList.innerHTML = '';
+
+        data.lessons.forEach(lesson => {
+            const lessonItem = document.createElement('li');
+            const lessonLink = document.createElement('a');
+            lessonLink.href = '#';
+            lessonLink.textContent = lesson.title;
+            lessonLink.addEventListener('click', () => {
+                lessonDetails.innerHTML = `<h3>${lesson.title}</h3><p>${lesson.content}</p>`;
+            });
+
+            lessonItem.appendChild(lessonLink);
+            lessonsList.appendChild(lessonItem);
+        });
+    }
 }
 
-function checkAnswer(correctAnswer) {
-    const userAnswer = document.getElementById('answer').value;
-    const feedback = userAnswer === correctAnswer ? "Correct!" : "Incorrect, try again.";
-    document.getElementById('feedback').innerText = feedback;
+// Function to update the problems content
+function updateProblemsContent(data) {
+    const problemsList = document.getElementById('problems-list');
+    const problemDetails = document.getElementById('problem-details');
+    const problemContent = document.getElementById('problem-content');
+    let currentProblem = null;
+
+    if (problemsList && problemDetails && problemContent) {
+        problemsList.innerHTML = '';
+
+        data.problems.forEach(problem => {
+            const problemItem = document.createElement('li');
+            const problemLink = document.createElement('a');
+            problemLink.href = '#';
+            problemLink.textContent = problem.title;
+            problemLink.addEventListener('click', () => {
+                currentProblem = problem;
+                problemDetails.innerHTML = `<h3>${problem.title}</h3><p>${problem.content}</p>`;
+                problemContent.innerHTML = '';
+                MathJax.typeset();
+            });
+
+            problemItem.appendChild(problemLink);
+            problemsList.appendChild(problemItem);
+        });
+    }
 }
 
-function openModal(modalId) {
-    document.getElementById(modalId).style.display = "block";
+// Function to update the resources content
+function updateResourcesContent(data) {
+    const resourcesList = document.getElementById('resources-list');
+
+    if (resourcesList) {
+        resourcesList.innerHTML = '';
+
+        data.resources.forEach(resource => {
+            const resourceItem = document.createElement('li');
+            resourceItem.className = 'resource-block'; // Add the CSS class
+
+            const resourceLink = document.createElement('a');
+            resourceLink.href = resource.link;
+            resourceLink.textContent = resource.title;
+            resourceLink.target = '_blank';
+
+            const resourceDescription = document.createElement('p');
+            resourceDescription.textContent = resource.description;
+
+            resourceItem.appendChild(resourceLink);
+            resourceItem.appendChild(resourceDescription);
+            resourcesList.appendChild(resourceItem);
+        });
+    }
 }
 
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none";
-}
+// Fetch the JSON data and call updateContent, updateLessonsContent, updateProblemsContent, and updateResourcesContent
+fetch('content.json')
+    .then(response => response.json())
+    .then(data => {
+        updateContent(data);
+        updateLessonsContent(data);
+        updateProblemsContent(data);
+        updateResourcesContent(data);
+    })
+    .catch(error => console.error('Error fetching content:', error));

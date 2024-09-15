@@ -2,29 +2,21 @@
 @font-face {
     font-family: 'TitleFont';
     src: url('fonts/title.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
     font-family: 'LinksFont';
     src: url('fonts/links.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
     font-family: 'ThemesFont';
     src: url('fonts/themes.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
     font-family: 'AllTextFont';
     src: url('fonts/alltext.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 body {
@@ -35,8 +27,14 @@ body {
     padding: 0;
 }
 
-header {
+header, nav ul, .large-block, .small-block, .about-us-block, .problems-list, .problem-details, .lessons-list, .lesson-details, .google-classroom-code, .submit-button, .problem-task {
     background-color: #e0e7ef;
+    padding: 1em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+header {
     color: white;
     padding: 0.2%;
     text-align: center;
@@ -54,7 +52,6 @@ header {
 nav ul {
     list-style: none;
     padding: 0;
-    background-color: #e0e7ef;
     overflow: hidden;
     margin: 0;
     display: flex;
@@ -112,7 +109,6 @@ main {
 
 .math-club-title {
     font-family: 'TitleFont', Arial, sans-serif;
-    font-weight: normal;
     letter-spacing: 0.1em;
     color: black;
 }
@@ -127,12 +123,6 @@ hr.b {
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
-}
-
-.large-block, .small-block {
-    background-color: #e0e7ef;
-    padding: 1em;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .large-block {
@@ -188,13 +178,203 @@ hr.b {
     cursor: pointer;
 }
 
-.about-us-block {
-    background-color: #e0e7ef;
-    padding: 1em;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+h2, h3, .about-us-block h2, .lessons-list h2, .lesson-details h3, .problems-list h2, .problem-details h3, .problem-task h3 {
+    font-family: 'ThemesFont', Arial, sans-serif;
+    color: black;
 }
 
-h2, h3, .about-us-block h2, .lessons-list h2, .lesson-details h3, .problems-list h2, .problem-details h3 {
+.problem-task {
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+}
+
+@media (max-width: 800px) {
+    .problem-task, .zxc {
+        margin-left: 0;
+    }
+}
+
+.submit-button {
+    font-family: 'LinksFont', Arial, sans-serif;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 4px 8px;
+    font-size: 12px;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #a6a6a6;
+    color: white;
+}
+
+.problem-task #task-content, .problem-task #task-answer, .problem-task #task-feedback {
+    font-family: 'AllTextFont', Arial, sans-serif;
+    color: #333;
+}
+.lessons-list, .problems-list, .lesson-details, .problem-details {
+    background-color: transparent; /* Remove background color */
+}
+/* Add this to your styles.css */
+.highlight-block {
+    background-color: #f0f8ff; /* Example color, adjust as needed */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.lessons-list {
+    background-color: #e0e7ef;
+    margin-right: 20px; /* Adjust the value as needed */
+}
+
+.lesson-details {
+    background-color: #e0e7ef;
+    margin-left: 20px; /* Adjust the value as needed */
+}
+.problem-input-window {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #e0e7ef;
+    margin-left: 20px; /* Adjust the value as needed */
+}
+.problem-input-window h3 {
     font-family: 'ThemesFont', Arial, sans-serif;
-    font-weight: normal;
+    color: black;
+}
+
+.problem-input-window textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'AllTextFont', Arial, sans-serif;
+    margin-bottom: 10px;
+    resize: none; /* Make textarea non-resizable */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.problem-input-window button {
+    font-family: 'LinksFont', Arial, sans-serif;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.problem-input-window button:hover {
+    background-color: #9f9d9d;
+}
+.problems-list {
+    background-color: #e0e7ef;
+    margin-right: 10px; /* Adjust the value as needed */
+}
+
+.problem-details {
+    background-color: #e0e7ef;
+    margin-left: 10px; /* Adjust the value as needed */
+}
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.lessons-list, .problems-list {
+    flex: 1;
+    min-width: 300px;
+}
+
+.lesson-details, .problem-details {
+    flex: 2;
+    min-width: 300px;
+}
+
+/* Media queries for phones */
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .lessons-list, .problems-list, .lesson-details, .problem-details {
+        min-width: 100%;
+    }
+
+    .math-club-title {
+        font-size: 1.5em;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin: 0.5em 0;
+    }
+}
+
+/* Media queries for tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        flex-direction: row;
+    }
+
+    .lessons-list, .problems-list {
+        flex: 1;
+    }
+
+    .lesson-details, .problem-details {
+        flex: 2;
+    }
+
+    .math-club-title {
+        font-size: 2em;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+    }
+
+    nav ul li {
+        margin: 0 1em;
+    }
+}
+/* Add styles for the resource blocks */
+/* Add styles for the resource blocks */
+.resource-block {
+    background-color: #e0e7ef; /* Match the color of other blocks */
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.resource-block a {
+    color: black; /* Match the link color of other blocks */
+    text-decoration: none;
+}
+
+.resource-block a:hover {
+    text-decoration: underline;
 }
