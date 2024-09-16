@@ -10,21 +10,25 @@ function updateContent(data) {
 function updateLessonsContent(data) {
     const lessonsList = document.getElementById('lessons-list');
     const lessonDetails = document.getElementById('lesson-details');
+    const uniqueLessons = new Set();
 
     if (lessonsList && lessonDetails) {
         lessonsList.innerHTML = '';
 
         data.lessons.forEach(lesson => {
-            const lessonItem = document.createElement('li');
-            const lessonLink = document.createElement('a');
-            lessonLink.href = '#';
-            lessonLink.textContent = lesson.title;
-            lessonLink.addEventListener('click', () => {
-                lessonDetails.innerHTML = `<h3>${lesson.title}</h3><p>${lesson.content}</p>`;
-            });
+            if (!uniqueLessons.has(lesson.title)) {
+                uniqueLessons.add(lesson.title);
+                const lessonItem = document.createElement('li');
+                const lessonLink = document.createElement('a');
+                lessonLink.href = '#';
+                lessonLink.textContent = lesson.title;
+                lessonLink.addEventListener('click', () => {
+                    lessonDetails.innerHTML = `<h3>${lesson.title}</h3><p>${lesson.content}</p>`;
+                });
 
-            lessonItem.appendChild(lessonLink);
-            lessonsList.appendChild(lessonItem);
+                lessonItem.appendChild(lessonLink);
+                lessonsList.appendChild(lessonItem);
+            }
         });
     }
 }
